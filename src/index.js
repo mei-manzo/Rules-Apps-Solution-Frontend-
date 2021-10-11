@@ -73,26 +73,27 @@ localStorage = new LocalStorage('./scratch');
 
 
 //Initiate XMLHttpRequest:
-var XMLHttpRequest = require ("xhr2");
+// var XMLHttpRequest = require ("xhr2");
   
-var xhr = new XMLHttpRequest();
+// var xhr = new XMLHttpRequest();
 
-xhr.onreadystatechange = function () {
-        if (this.readyState != 4) return;
+// xhr.onreadystatechange = function () {
+//         if (this.readyState != 4) return;
 
-        if (this.status == 200) {
-            // console.warn(xhr.responseText)
-            var data = JSON.parse(this.responseText);
-            console.log(data);
-            localStorage.setItem("rules", JSON.stringify(data));
-            // we get the returned data
-        }
+//         if (this.status == 200) {
+//             // console.warn(xhr.responseText)
+//             var data = JSON.parse(this.responseText);
+//             console.log(data);
+//             localStorage.setItem("rules", JSON.stringify(data));
+//             // we get the returned data
+//         }
     
-        // end of state change: it can be after some time (async)
-};
+//         // end of state change: it can be after some time (async)
+// };
     
-xhr.open('GET', 'http://localhost:7000/', true);
-xhr.send();
+// xhr.open('GET', 'http://localhost:7000/', true);
+// xhr.send();
+
 ////GET CLIENTS
 // xhr.onreadystatechange = function () {
 //   if (this.readyState != 4) return;
@@ -151,22 +152,45 @@ var options = {
   url: 'http://localhost:7001/',
 };
 
+
+var ruleList = {};
+
+
 axios.request(options).then(function (response) {
   rulescript = response.data;
+  // newScript = JSON.parse(rulescript);
   localStorage.setItem("red", "rose");
   var yo = localStorage.getItem("toy");
-  var rules = localStorage.getItem("rulesData");
-  console.log("testttt")
+  var rules = localStorage.getItem("rules");
+  // var newRule = (newScript[0]);
+  var someData = JSON.stringify(rulescript)
+  var aData = JSON.parse(someData);
+  // console.log(aData[0].name);
+  for (var i=0; i<Object.keys(aData).length; i++){
+    // ruleList.push(aData[i].name);
+    ruleList[aData[i].name] = (aData[i].script);
+    localStorage.setItem(aData[i].name, aData[i].script);
+  }
+  for (var x = 0; x<Object.keys(aData).length; i++){
+    if (Object.keys(ruleList).includes("clientName")){
+      ruleList[aData[i].name] ="no app specified";
+      localStorage.setItem(aData[i].name,"no app specified");
+    }
+  }
+  console.log(ruleList);
 });
 
 app.get("/solution", requiresAuth(), (req, res) => {
   res.render("solution", {
     user: req.oidc.user,
     yo: yo,
+    // newRule: newRule,
     rulescript: rulescript,
+    ruleList: ruleList
     // Rules: JSON.stringify(localStorage.getItem("rulesData")),
   });
 });
+
 
 
 /**

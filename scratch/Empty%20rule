@@ -1,0 +1,19 @@
+function (user, context, callback) {
+  // role should only be set to verified users.
+  if (!user.email || !user.email_verified) {
+    return callback(null, user, context);
+  }
+
+  user.app_metadata = user.app_metadata || {};
+
+  // set the 'admin' role to the following user
+  const whitelist = ['mmanzo806@gmail.com', 'limanzo@ucsc.edu']; //your whitelist goes here
+  user.app_metadata.role = user.email === whitelist ? 'admin' : 'user';
+
+  auth0.users.updateAppMetadata(user.user_id, user.app_metadata).then(() => {
+    context.idToken['http://localhost:8000/dashboard'] = user.app_metadata.role;
+    callback(null, user, context);
+  }).catch((err) => {
+    callback(err);
+  });
+}

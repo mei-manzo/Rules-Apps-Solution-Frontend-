@@ -6,7 +6,13 @@ block content
     div
         h1 This is an Auth0 authenticated solution.
         
-    p rulescript:
-    if rulescript
-        pre(class="col-12 text-light bg-dark p-4") #{JSON.stringify(rulescript, null, 2)}
+    //- p Rules:
+    //- if newRule
+    //-     pre(class="col-12 text-light bg-dark p-4") #{JSON.stringify(newRule, null, 2)}
+    //- p Rules:
+    //- if rulescript
+    //-     pre(class="col-12 text-light bg-dark p-4") #{JSON.stringify(rulescript, null, 2)}
         
+    p Rules:
+    if ruleList 
+        pre(class="col-12 text-light bg-dark p-4") #{JSON.stringify(ruleList, null, 2)}
