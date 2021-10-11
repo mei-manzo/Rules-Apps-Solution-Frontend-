@@ -1,27 +1,27 @@
-# Easy User Authentication for Express Web Apps
+# Rules/Apps Solution
 
-This repository hosts a Node project that defines a web app using Express. You'll secure access to some of its routes using Auth0 User Authentication.
+Welcome! You're looking at the repo for the client Rules/Apps frontend app. I built this frontend using this Auth0 SDK template which can be found here at this link: https://github.com/auth0-blog/auth0-express-pug-sample.
 
-## Get Started
+# Instructions
+Start by making a git clone of the code repo into your personal folder. 
 
-Install the client project dependencies:
+Once you have the code repo downloaded, make sure to npm install in your terminal to download all the necessary packages.
 
-```bash
-npm install
-```
+There are a few fields where you will need to add your own client/domain info so that the app can render your customized tenant information. Make sure to go into .env and update the following values with your information: 
 
-Run the server:
+DEV_PORT=4041
+PROD_PORT=4040
+AUTH0_ISSUER_BASE_URL='YOUR_DOMAIN_HERE'
+AUTH0_CLIENT_ID="YOUR_ID"
+BASE_URL=http://localhost:4040
+SESSION_SECRET="YOUR_SESSION_SECRET"
 
-```bash
-npm run dev
-```
+In order for the frontend to render the data from our Management API, you'll need to download and run the two required backend servers. You can access them at these links:
 
-Open another terminal window and run the client proxy that enables live reload:
+First server: https://github.com/mei-manzo/Backend-Server-One
+Second server: https://github.com/mei-manzo/Backend-Server-Two
 
-```
-npm run ui
-```
+Once you have your servers up and running, you can engage the frontend by opening two terminals at the directory and run "npm run dev" to start the app and run "npm run ui" in the other terminal to launch the ui in your browser. 
 
-The application runs by on port `4040` to mitigate conflicting with other client applications you may be running.
 
-Visit [`http://localhost:4040/`](http://localhost:4040/) to access the starter application.
+

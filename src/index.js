@@ -72,45 +72,6 @@ var LocalStorage = require('node-localstorage').LocalStorage, //here we are defi
 localStorage = new LocalStorage('./scratch');
 
 
-//Initiate XMLHttpRequest:
-// var XMLHttpRequest = require ("xhr2");
-  
-// var xhr = new XMLHttpRequest();
-
-// xhr.onreadystatechange = function () {
-//         if (this.readyState != 4) return;
-
-//         if (this.status == 200) {
-//             // console.warn(xhr.responseText)
-//             var data = JSON.parse(this.responseText);
-//             console.log(data);
-//             localStorage.setItem("rules", JSON.stringify(data));
-//             // we get the returned data
-//         }
-    
-//         // end of state change: it can be after some time (async)
-// };
-    
-// xhr.open('GET', 'http://localhost:7000/', true);
-// xhr.send();
-
-////GET CLIENTS
-// xhr.onreadystatechange = function () {
-//   if (this.readyState != 4) return;
-
-//   if (this.status == 200) {
-//       // console.warn(xhr.responseText)
-//       var data = JSON.parse(this.responseText);
-//       console.log(data);
-//       localStorage.setItem("clients", JSON.stringify(data));
-//       // we get the returned data
-//   }
-
-//   // end of state change: it can be after some time (async)
-// };
-
-// xhr.open('GET', 'http://localhost:7001/', true);
-// xhr.send();
 
 // > Authentication
 app.get("/sign-up/:page", (req, res) => {
@@ -140,9 +101,9 @@ app.get("/logout/:page", (req, res) => {
   });
 });
 
-////////////////
+///CALL ON MANAGEMENT DATA
 
-var axios = require("axios").default; ////WATCH OUT FOR IF THIS BREAKS SOMETHING
+var axios = require("axios").default; 
 const { PassThrough } = require("stream");
 
 var options = {
@@ -169,12 +130,8 @@ axios.request(options).then(function (response) {
       ruleList[aData[i].name] ="no app specified";
     }
   }
-  //need to make a dictionary of clients, check if clients exist within rules, if so then add as value
-  // console.log(ruleKeys);
-  // console.log(ruleNames);
 });
 
-//ruleKeys
 
 var clientOptions = {
   method: 'GET',
@@ -190,11 +147,7 @@ axios.request(clientOptions).then(function (response) {
   var bData = JSON.parse(someClientData);
   for (var y= 0; y<Object.keys(bData).length; y++){
     clientDict.push(bData[y].name);//dict containing all app names
-    // for (var j=0; j<ruleKeys.length; j++){
-    //   if (ruleKeys[0][j].includes("email")){//if values includes app name
-    //     ruleKeys[j] == "email";
-    //   }
-    // }
+
   }
   // console.log(clientDict[7]);
   for (var t = 0; t<ruleKeys.length; t++){
@@ -214,16 +167,12 @@ axios.request(clientOptions).then(function (response) {
   }
   console.log(ruleKeys); //this is our complete list of apps for their corresponding rules
 
-  // console.log(ruleList);
-  // for (var i=0; i<Object.keys(aData).length; i++){
   for (var a=0; a<ruleNames.length; a++){
     // for (var w=0; w<ruleKeys.length; w++){
       ruleList[ruleNames[a]] = ruleKeys[a];
     
   }
   console.log(ruleList);
-  // console.log(ruleNames);
-  // console.log(ruleList[ruleNames[4]]);
 
 });
 
@@ -232,10 +181,8 @@ axios.request(clientOptions).then(function (response) {
 app.get("/solution", requiresAuth(), (req, res) => {
   res.render("solution", {
     user: req.oidc.user,
-    // newRule: newRule,
     rulescript: rulescript,
     ruleList: ruleList
-    // Rules: JSON.stringify(localStorage.getItem("rulesData")),
   });
 });
 
