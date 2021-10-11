@@ -37,7 +37,7 @@ First server: https://github.com/mei-manzo/Backend-Server-One
 
 Second server: https://github.com/mei-manzo/Backend-Server-Two
 
-Make sure your servers are connected, otherwise your app won't be able to render the data. Feel free to take a look at the README.md files in the servers' repos if you'd like some tips on how to get set up. Once you have your servers up and running, you can engage the frontend by opening two terminals at the directory and run "npm run dev" to start the app and run "npm run ui" in the other terminal to launch the ui in your browser. Tip: the authentication can sometimes "stick" and lock the user out, if this happens to you, open up an "ingognito" tab in your browser to start a new session.
+Make sure your servers are connected, otherwise your app won't be able to render the data. Feel free to take a look at the README.md files in the servers' repos if you'd like some tips on how to get set up. Once you have your servers up and running, you can engage the frontend by opening two terminals at the directory and run "npm run dev" to start the app and run "npm run ui" in the other terminal to launch the ui in your browser. Tip: The authentication can sometimes "stick" and lock the user out, if this happens to you, open up an "incognito" tab in your browser to start a new session.
 
 
 # Restrict to "Whitelisted Users Only"
