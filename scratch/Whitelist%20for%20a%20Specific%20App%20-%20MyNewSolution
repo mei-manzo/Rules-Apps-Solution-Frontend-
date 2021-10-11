@@ -6,7 +6,7 @@ function userWhitelistForSpecificApp(user, context, callback) {
 
   // only enforce for NameOfTheAppWithWhiteList
   // bypass this rule for all other apps
-  if (context.clientName !== 'MySolution') {
+  if (context.clientName !== 'http://localhost:4040/solution') {
     return callback(null, user, context);
   }
 

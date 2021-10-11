@@ -168,13 +168,12 @@ axios.request(options).then(function (response) {
   // console.log(aData[0].name);
   for (var i=0; i<Object.keys(aData).length; i++){
     // ruleList.push(aData[i].name);
-    ruleList[aData[i].name] = (aData[i].script);
-    localStorage.setItem(aData[i].name, aData[i].script);
-  }
-  for (var x = 0; x<Object.keys(aData).length; i++){
-    if (Object.keys(ruleList).includes("clientName")){
+    // ruleList[aData[i].name] = (aData[i].script);
+    if ((aData[i].script).includes("clientName")){
+      ruleList[aData[i].name] = (aData[i].script);
+    }
+    else{
       ruleList[aData[i].name] ="no app specified";
-      localStorage.setItem(aData[i].name,"no app specified");
     }
   }
   console.log(ruleList);
