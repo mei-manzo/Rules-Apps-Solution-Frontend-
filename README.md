@@ -39,7 +39,7 @@ First server: https://github.com/mei-manzo/Backend-Server-One
 
 Second server: https://github.com/mei-manzo/Backend-Server-Two
 
-Once you have your servers up and running, you can engage the frontend by opening two terminals at the directory and run "npm run dev" to start the app and run "npm run ui" in the other terminal to launch the ui in your browser. 
+Once you have your servers up and running, you can engage the frontend by opening two terminals at the directory and run "npm run dev" to start the app and run "npm run ui" in the other terminal to launch the ui in your browser. Tip: the authentication can sometimes "stick" and lock the user out, if this happens to you, open up an "ingognito" tab in your browser to start a new session.
 
 
 
