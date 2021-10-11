@@ -1,8 +1,9 @@
-# Rules/Apps Solution
 
 Welcome! You're looking at the repo for the client Rules/Apps frontend app. I built this frontend using this Auth0 SDK template which can be found here at this link: https://github.com/auth0-blog/auth0-express-pug-sample.
 
-App Features:
+# Rules/Apps Solution
+
+App features:
 
 -Auth0 protected solution
 
