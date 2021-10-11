@@ -15,9 +15,7 @@ App features:
 
 
 # Instructions
-Start by making a git clone of the code repo into your personal folder. 
-
-Once you have the code repo downloaded, make sure to npm install in your terminal to download all the necessary packages.
+Start by making a git clone of the code repo into your personal folder. Once you have the code repo downloaded, make sure to npm install in your terminal to download all the necessary packages.
 
 There are a few fields where you will need to add your own client/domain info so that the app can render your customized tenant information. Make sure to go into .env and update the following values with your information: 
 
