@@ -143,6 +143,7 @@ app.get("/logout/:page", (req, res) => {
 ////////////////
 
 var axios = require("axios").default; ////WATCH OUT FOR IF THIS BREAKS SOMETHING
+const { PassThrough } = require("stream");
 
 var options = {
   method: 'GET',
@@ -150,38 +151,82 @@ var options = {
 };
 
 var ruleList = {};
+var ruleKeys = [];
+var ruleNames = [];
 
 axios.request(options).then(function (response) {
   rulescript = response.data;
   var someData = JSON.stringify(rulescript);
   var aData = JSON.parse(someData);
   var clientsFirst = aData[0]
-  for (var i=0; i<Object.keys(clientsFirst).length; i++){
+  for (var i=0; i<Object.keys(aData).length; i++){
     if ((aData[i].script).includes("clientName")){
       ruleList[aData[i].name] = (aData[i].script);
+      ruleKeys.push(aData[i].script);//create a dictionary of rules values
+      ruleNames.push(aData[i].name);//create dictionary for rule
     }
     else{
       ruleList[aData[i].name] ="no app specified";
     }
   }
   //need to make a dictionary of clients, check if clients exist within rules, if so then add as value
-  // console.log(ruleList);
+  // console.log(ruleKeys);
+  // console.log(ruleNames);
 });
 
+//ruleKeys
 
 var clientOptions = {
   method: 'GET',
   url: 'http://localhost:7000/',
 };
 
+var clientDict = [];
 
 axios.request(clientOptions).then(function (response) {
   clientData = response.data;
+  // console.log(ruleKeys);
   var someClientData = JSON.stringify(clientData);
   var bData = JSON.parse(someClientData);
+  for (var y= 0; y<Object.keys(bData).length; y++){
+    clientDict.push(bData[y].name);//dict containing all app names
+    // for (var j=0; j<ruleKeys.length; j++){
+    //   if (ruleKeys[0][j].includes("email")){//if values includes app name
+    //     ruleKeys[j] == "email";
+    //   }
+    // }
+  }
+  // console.log(clientDict[7]);
+  for (var t = 0; t<ruleKeys.length; t++){
+    for (var u=0; u<clientDict.length; u++){
+      if ((ruleKeys[t]).includes(clientDict[u])){//check to see if rulekeys has client dict
+        ruleKeys[t] = clientDict[u];//if it does, replace it
+      } if (!(ruleKeys[t]).includes(clientDict[u])){
+        //pass
+      }
+    }
+  }
+// console.log(ruleKeys);
+  for (var r=0; r<ruleKeys.length; r++){
+    if (ruleKeys[r].length > 20){
+      ruleKeys[r] = "N/A - app removed or invalid";
+    }
+  }
+  console.log(ruleKeys); //this is our complete list of apps for their corresponding rules
 
-  console.log(bData[0].name);
+  // console.log(ruleList);
+  // for (var i=0; i<Object.keys(aData).length; i++){
+  for (var a=0; a<ruleNames.length; a++){
+    // for (var w=0; w<ruleKeys.length; w++){
+      ruleList[ruleNames[a]] = ruleKeys[a];
+    
+  }
+  console.log(ruleList);
+  // console.log(ruleNames);
+  // console.log(ruleList[ruleNames[4]]);
+
 });
+
 
 
 app.get("/solution", requiresAuth(), (req, res) => {
@@ -202,5 +247,4 @@ app.get("/solution", requiresAuth(), (req, res) => {
 
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
-});
-
+}); 
