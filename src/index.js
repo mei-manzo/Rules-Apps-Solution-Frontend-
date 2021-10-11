@@ -140,35 +140,23 @@ app.get("/logout/:page", (req, res) => {
   });
 });
 
-localStorage.setItem("toy", "car");
-var yo = localStorage.getItem("toy");
-var yoy = JSON.stringify(yo);
-
+////////////////
 
 var axios = require("axios").default; ////WATCH OUT FOR IF THIS BREAKS SOMETHING
 
 var options = {
   method: 'GET',
-  url: 'http://localhost:7001/',
+  url: 'http://localhost:2000/',
 };
-
 
 var ruleList = {};
 
-
 axios.request(options).then(function (response) {
   rulescript = response.data;
-  // newScript = JSON.parse(rulescript);
-  localStorage.setItem("red", "rose");
-  var yo = localStorage.getItem("toy");
-  var rules = localStorage.getItem("rules");
-  // var newRule = (newScript[0]);
-  var someData = JSON.stringify(rulescript)
+  var someData = JSON.stringify(rulescript);
   var aData = JSON.parse(someData);
-  // console.log(aData[0].name);
-  for (var i=0; i<Object.keys(aData).length; i++){
-    // ruleList.push(aData[i].name);
-    // ruleList[aData[i].name] = (aData[i].script);
+  var clientsFirst = aData[0]
+  for (var i=0; i<Object.keys(clientsFirst).length; i++){
     if ((aData[i].script).includes("clientName")){
       ruleList[aData[i].name] = (aData[i].script);
     }
@@ -176,13 +164,29 @@ axios.request(options).then(function (response) {
       ruleList[aData[i].name] ="no app specified";
     }
   }
-  console.log(ruleList);
+  //need to make a dictionary of clients, check if clients exist within rules, if so then add as value
+  // console.log(ruleList);
 });
+
+
+var clientOptions = {
+  method: 'GET',
+  url: 'http://localhost:7000/',
+};
+
+
+axios.request(clientOptions).then(function (response) {
+  clientData = response.data;
+  var someClientData = JSON.stringify(clientData);
+  var bData = JSON.parse(someClientData);
+
+  console.log(bData[0].name);
+});
+
 
 app.get("/solution", requiresAuth(), (req, res) => {
   res.render("solution", {
     user: req.oidc.user,
-    yo: yo,
     // newRule: newRule,
     rulescript: rulescript,
     ruleList: ruleList
