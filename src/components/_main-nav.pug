@@ -6,12 +6,18 @@ mixin main-nav(activeRoute)
       class=`${activeRoute === "/" && "router-link-exact-active"}`
     ) Home
     a(
-      href="/profile"
+      href="/solution"
       class="nav-link",
-      class=`${activeRoute === "/profile" && "router-link-exact-active"}`
-    ) Profile
-    a(
-      href="/external-api"
-      class="nav-link",
-      class=`${activeRoute === "/external-api" && "router-link-exact-active"}`
-    ) External API
+      class=`${activeRoute === "/solution" && "router-link-exact-active"}`
+    ) My Solution
+    //- a(
+    //-   href="/profile"
+    //-   class="nav-link",
+    //-   class=`${activeRoute === "/profile" && "router-link-exact-active"}`
+    //- ) Profile
+        a(
+    //- a(
+    //-   href="/external-api"
+    //-   class="nav-link",
+    //-   class=`${activeRoute === "/external-api" && "router-link-exact-active"}`
+    //- ) External API

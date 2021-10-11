@@ -18,6 +18,9 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "pug": "^3.0.0"
+    "express-openid-connect": "^2.5.1",
+    "node-localstorage": "^2.2.1",
+    "pug": "^3.0.0",
+    "xhr2": "^0.2.1"
   }
 }
