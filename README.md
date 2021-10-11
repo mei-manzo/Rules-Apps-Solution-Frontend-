@@ -1,5 +1,5 @@
 
-Welcome! You're looking at the repo for the client Rules/Apps frontend app. I built this frontend using this Auth0 SDK template which can be found here at this link: https://github.com/auth0-blog/auth0-express-pug-sample.
+Welcome! This is the repo for the client Rules/Apps frontend app. I built this frontend using this Auth0 SDK template which can be found here at this link: https://github.com/auth0-blog/auth0-express-pug-sample.
 
 # Rules/Apps Solution
 
@@ -39,5 +39,34 @@ Second server: https://github.com/mei-manzo/Backend-Server-Two
 
 Make sure your servers are connected, otherwise your app won't be able to render the data! Feel free to take a look at the README.md files in the servers' repos if you'd like some tips on how to get set up. Once you have your servers up and running, you can engage the frontend by opening two terminals at the directory and run "npm run dev" to start the app and run "npm run ui" in the other terminal to launch the ui in your browser. Tip: the authentication can sometimes "stick" and lock the user out, if this happens to you, open up an "ingognito" tab in your browser to start a new session.
 
+To restrict the app to "Whitelisted Users" only, you'll need to go into your User Dashboard and create a new rule. Go to your main Dashboard -> Auth Pipeline -> Rules -> Create Empty Rule. Scroll down to the rule templates and click on "Whitelist for a Specific App". The following script should populate:
+
+
+function userWhitelistForSpecificApp(user, context, callback) {
+  // Access should only be granted to verified users.
+  if (!user.email || !user.email_verified) {
+    return callback(new UnauthorizedError('Access denied.'));
+  }
+
+  // only enforce for NameOfTheAppWithWhiteList
+  // bypass this rule for all other apps
+  if (context.clientName !== 'YOUR_APP_NAME') { //add the url for your solutions app
+    return callback(null, user, context);
+  }
+
+  const whitelist = ['user1@email.com', 'user2@email.com']; // add your whitelisted users
+  const userHasAccess = whitelist.some(function (email) {
+    return email === user.email;
+  });
+
+  if (!userHasAccess) {
+    return callback(new UnauthorizedError('Access denied.'));
+  }
+
+  callback(null, user, context);
+}
+
+
+Fill in the "clientName" and "whitelist" content with your own information, then scroll down and click "Save Changes". Now our solution will only be visible to our whitelisted users.
 
 
